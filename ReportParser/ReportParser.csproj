@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net46</TargetFramework>
+    <Platforms>x86</Platforms>
+    <AssemblyName>ReportParser</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <ProjectReference Include="..\ClientScripts\ClientScripts.csproj" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="RXMusic.Common.Logging" Version="6.0.0-b1810061053" />
+  </ItemGroup>
+
+</Project>
