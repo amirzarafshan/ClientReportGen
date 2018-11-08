@@ -15,7 +15,7 @@ namespace ClientScripts
             Formatting = Formatting.Indented,
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
         };
-
+        
         public static string ToString(object o)
         {
             return JsonConvert.SerializeObject(o, Settings);
