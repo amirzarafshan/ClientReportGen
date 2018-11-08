@@ -9,7 +9,6 @@ namespace ClientScripts.Reports
         public ClientParams ClientParams { get; set; }
         public DisplayInfo[] Displays { get; set; }
 
-
        // public override string ToCSV(char c = ',')
         //{
        //    return string.Join(c.ToString(),

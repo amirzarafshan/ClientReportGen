@@ -19,8 +19,9 @@ namespace ClientScripts.Models
             string PosX = "iPosX";
             string PosY = "iPosY";
             string Create_Date = "Date_Created";
+            string File = "Screens";
 
-            return String.Join(",", Client, Name, Version, Monitors_Count, Width, Height, BlockAppWindow, PosX, PosY, Create_Date);
+            return String.Join(",", Client, Name, Version, Monitors_Count, Width, Height, BlockAppWindow, PosX, PosY, Create_Date, File);
 
         }
     }

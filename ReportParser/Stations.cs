@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ClientScripts.Reports;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ClientScripts.Models
 {
@@ -70,6 +72,8 @@ namespace ClientScripts.Models
 
         static string ScreenInformation(Client client, ScreenReport info)
         {
+            
+           
             try
             {
                 return string.Join(",", client.Name, info.ReportName, info.ReportVersion, info.Displays.Length,
@@ -78,7 +82,10 @@ namespace ClientScripts.Models
                         info.ClientParams.bLockAppWindow,
                         info.ClientParams.iPosX,
                         info.ClientParams.iPosY,
-                        info.CreatedAt);
+                        info.CreatedAt,
+                        String.Join("\" ", JsonConvert.SerializeObject(info.Displays, Formatting.None).Split(','))
+                        );
+                        
             }
             catch
             {

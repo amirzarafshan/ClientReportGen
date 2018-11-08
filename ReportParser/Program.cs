@@ -1,6 +1,10 @@
 ﻿using System;
 using ClientScripts.Models;
+using System.Windows.Forms;
 using System.IO;
+
+using System.Linq;
+using ClientScripts.Extensions;
 
 namespace ReportParser
 {
@@ -9,6 +13,12 @@ namespace ReportParser
         static void Main(string[] args)
         {
             GenerateFullReport();
+            //Console.WriteLine(ClientScripts.Database.PCMClientParams.GetPCMClientPosition());
+            //Console.WriteLine(ReportReader.ReadScreenReportFromFile("screenreport.pcmstat"));
+            //Console.WriteLine(Screen.AllScreens.Select(x => x.to);
+           
+            //Console.ReadKey();
+
         }
         
         static void GenerateFullReport()
