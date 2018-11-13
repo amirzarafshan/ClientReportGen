@@ -27,11 +27,9 @@ namespace ReportParser
                 file.WriteLine();
                 file.Close();
             }
-
             var units = Client.ReadClientsFromText(unitList);
             foreach (var unit in units)
-                try { Stations.SendScreenInfoToCSV(unit, reportPath); }
-                catch { throw new FileNotFoundException("@units.txt: station '" + unit.Name + "' not exists!"); }
+                Stations.SendScreenInfoToCSV(unit, reportPath); 
         }
     }
 }

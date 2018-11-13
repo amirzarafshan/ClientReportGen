@@ -1,6 +1,5 @@
 ﻿using ClientScripts.Models;
 using System.Windows.Forms;
-using ClientScripts;
 
 namespace ClientScripts.Reports
 {
