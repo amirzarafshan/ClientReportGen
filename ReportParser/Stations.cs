@@ -34,11 +34,7 @@ namespace ClientScripts.Models
         public static bool IsValidStation(Client client)
         {
 
-            try { return AllStations().Exists(x => x.Name.Equals(client.Name));
-                
-
-            }
-            //catch { throw new DirectoryNotFoundException("Station Not Found!"); }
+            try { return AllStations().Exists(x => x.Name.Equals(client.Name, StringComparison.OrdinalIgnoreCase)); }
             catch { return false; }
         }
 

@@ -17,7 +17,7 @@ namespace ClientScripts.Models
             var units = new List<Client>();
 
             foreach(var unit in File.ReadAllLines(file))
-                units.Add(new Client(unit));
+                units.Add(new Client(unit.Trim()));
 
             return units;   
         }
