@@ -86,7 +86,7 @@ namespace ClientScripts.Models
                         info.ClientParams.iPosX,
                         info.ClientParams.iPosY,
                         info.CreatedAt,
-                        String.Join("\" ", JsonConvert.SerializeObject(info.Displays, Formatting.None).Split(','))
+                        String.Join("\" ", JsonConvert.SerializeObject(info.Displays, Formatting.None).ToLowerInvariant().Split(','))
                         );         
             }
             catch
