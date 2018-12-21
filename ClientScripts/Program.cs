@@ -18,8 +18,8 @@ namespace ClientScripts
             {
                 if (args.Length == 0)
                     return;
-    
-                switch(args[0])
+
+                switch (args[0])
                 {
                     case "screenreport":
                         var screenreport = CreateScreenReport();
