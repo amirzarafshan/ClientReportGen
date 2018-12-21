@@ -20,7 +20,5 @@ namespace ClientScripts.Reports
             return Serializer.ToString(this);
         }
 
-        //public abstract string ToCSV(char c);
-
     }
 }

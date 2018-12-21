@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <PackageReference Include="Dapper" version="1.50.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />

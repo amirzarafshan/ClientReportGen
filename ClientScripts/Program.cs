@@ -6,6 +6,7 @@ using ClientScripts.Database;
 using ClientScripts.Extensions;
 using ClientScripts.Models;
 using ClientScripts.Reports;
+using Microsoft.VisualBasic.Devices;
 
 namespace ClientScripts
 {
@@ -15,9 +16,22 @@ namespace ClientScripts
         {
             try
             {
-                var report = CreateScreenReport();
-                WriteReport(report);
-               
+                if (args.Length == 0)
+                    return;
+    
+                switch(args[0])
+                {
+                    case "screenreport":
+                        var screenreport = CreateScreenReport();
+                        WriteReport(screenreport);
+                        break;
+
+                    case "systeminfo":
+                        var systeminforeport = CreateOSInformationReport();
+                        WriteReport(systeminforeport);
+                        break;
+
+                }
             }
             catch (Exception ex)
             {
@@ -43,6 +57,19 @@ namespace ClientScripts
             };
         }
 
+        private static SystemInfo CreateOSInformationReport()
+        {
+            ComputerInfo ci = new ComputerInfo();
+
+            return new SystemInfo
+            {
+                OSInfo = ci.ToOSInformation(),
+                HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
+                NetworkInformation = NetworkInfoExt.ToNetworkInfo(),
+                Status = Status.Success
+            };
+
+        }
         private static void WriteExceptionReport(Exception ex)
         {
             try
