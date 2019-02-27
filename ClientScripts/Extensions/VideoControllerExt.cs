@@ -13,7 +13,7 @@ namespace ClientScripts.Extensions
 
             return new VideoControllerInfo
             {
-                Description = gpInfo.Name,
+                Description = gpInfo.Name.Trim(),
                 AdapterRAM = gpInfo.AdapterRAM   
             };
 

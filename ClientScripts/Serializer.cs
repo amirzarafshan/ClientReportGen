@@ -15,7 +15,7 @@ namespace ClientScripts
             Formatting = Formatting.Indented,
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
         };
-        
+
         public static string ToString(object o)
         {
             return JsonConvert.SerializeObject(o, Settings);
@@ -25,13 +25,13 @@ namespace ClientScripts
         {
             return JsonConvert.DeserializeObject<T>(str, Settings);
         }
-    }
 
-    public sealed class LowercaseContractResolver : DefaultContractResolver
-    {
-        protected override string ResolvePropertyName(string propertyName)
+        public sealed class LowercaseContractResolver : DefaultContractResolver
         {
-            return propertyName.ToLower();
+            protected override string ResolvePropertyName(string propertyName)
+            {
+                return propertyName.ToLower();
+            }
         }
     }
 }

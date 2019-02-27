@@ -17,9 +17,9 @@ namespace ClientScripts.Extensions
 
             return new OSInformation
             {
-                ComputerSystem = Environment.MachineName,
+                ComputerSystem = Environment.MachineName.Trim(),
                 OperatingSystem = computerInfo.OSFullName.Trim(),
-                OperatingSystemVersion = computerInfo.OSVersion
+                OperatingSystemVersion = computerInfo.OSVersion.Trim()
             };
         }
     }

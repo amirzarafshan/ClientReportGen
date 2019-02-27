@@ -7,7 +7,7 @@ namespace ClientScripts.Models
 {
     public class ComputerSystemInfo
     {
-        const int ToGB = 1000000000;
+        const int ToMB = 1048576;
 
         private static string ComputerSystem(string propName)
         {
@@ -34,7 +34,7 @@ namespace ClientScripts.Models
         public static double PhysicalMemory()
         {
             ComputerInfo ci = new ComputerInfo();
-            return Convert.ToDouble(ci.TotalPhysicalMemory/ToGB);
+            return Convert.ToDouble(ci.TotalPhysicalMemory/ToMB);
         }
     }
 }

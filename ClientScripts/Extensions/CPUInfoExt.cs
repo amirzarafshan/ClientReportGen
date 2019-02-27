@@ -11,7 +11,7 @@ namespace ClientScripts.Extensions
         {
             return new CPUInfo
             {
-                Name = cpuInfo.Name
+                Name = cpuInfo.Name.Trim()
             };
         }
            

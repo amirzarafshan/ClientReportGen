@@ -8,6 +8,6 @@ namespace ClientScripts.Reports
         public OSInformation OSInfo { get; set; }
         public HardwareInformation HardwareInfo { get; set; }
         public NetworkInfo NetworkInformation { get; set; }
-
+        public TVInformation[] TeamViewerInformation { get; set; }
     }
 }

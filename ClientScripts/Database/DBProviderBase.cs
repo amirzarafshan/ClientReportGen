@@ -11,7 +11,7 @@ namespace ClientScripts.Database
 
         public DBProviderBase()
         {
-            _connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=c:\program files (x86)\pcm\v4player\PCMClient\pcmclient.mdb;Jet OLEDB:Database Password=PCMusic321;";
+            _connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=PCMClient\pcmclient.mdb;Jet OLEDB:Database Password=PCMusic321;";
         }
 
         public DBProviderBase(string connString)

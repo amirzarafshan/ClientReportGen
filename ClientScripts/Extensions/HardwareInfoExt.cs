@@ -13,9 +13,9 @@ namespace ClientScripts.Extensions
             ManagementClass vc = new ManagementClass("Win32_VideoController");
             return new HardwareInformation
             {   
-                BiosSerialNumber = BIOSInfo.SerialNumber(),
-                Manufacturer = ComputerSystemInfo.Manufacturer(),
-                Model = ComputerSystemInfo.Model(),
+                BiosSerialNumber = BIOSInfo.SerialNumber().Trim(),
+                Manufacturer = ComputerSystemInfo.Manufacturer().Trim(),
+                Model = ComputerSystemInfo.Model().Trim(),
                 RAM = ComputerSystemInfo.PhysicalMemory(),
                 CPU_Count = Environment.ProcessorCount,
                 CPUInfo = ProcessorInfo.CPUsInfo().Select(c => c.ToCPUInfo()).ToArray(),

@@ -17,9 +17,9 @@ namespace ClientScripts.Extensions
 
             return new LogicalDriveInfo
             {
-                DriveName = driveInfo.Name,
-                SerialNumber = VolumeSerialNumber(driveInfo.Name),
-                FileSystem = driveInfo.DriveFormat,
+                DriveName = driveInfo.Name.Trim(),
+                SerialNumber = VolumeSerialNumber(driveInfo.Name).Trim(),
+                FileSystem = driveInfo.DriveFormat.Trim(),
                 Size = driveInfo.TotalSize/ToMB,
                 FreeSpace = driveInfo.AvailableFreeSpace/ToMB
             };

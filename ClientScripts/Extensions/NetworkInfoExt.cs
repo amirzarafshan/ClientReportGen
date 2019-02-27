@@ -15,9 +15,9 @@ namespace ClientScripts.Extensions
 
             return new NetworkInfo
             {
-                IPAddress = Dns.GetHostAddresses(Dns.GetHostName()).Where(a => a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault().ToString(),
-                DotNETVersion = Environment.Version.ToString(),
-                IEVersion = InternetExplorerVersion()
+                IPAddress = Dns.GetHostAddresses(Dns.GetHostName()).Where(a => a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault().ToString().Trim(),
+                DotNETVersion = Environment.Version.ToString().Trim(),
+                IEVersion = InternetExplorerVersion().Trim()
 
             };
         }

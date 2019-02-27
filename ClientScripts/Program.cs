@@ -16,22 +16,22 @@ namespace ClientScripts
         {
             try
             {
-                if (args.Length == 0)
-                    return;
+                //if (args.Length == 0)
+                //    return;
 
-                switch (args[0])
-                {
-                    case "screenreport":
+                //switch (args[0])
+                //{
+                    //case "screenreport":
                         var screenreport = CreateScreenReport();
                         WriteReport(screenreport);
-                        break;
+                        //break;
 
-                    case "systeminfo":
+                    //case "systeminfo":
                         var systeminforeport = CreateOSInformationReport();
                         WriteReport(systeminforeport);
-                        break;
+                        //break;
 
-                }
+                //}
             }
             catch (Exception ex)
             {
@@ -66,6 +66,7 @@ namespace ClientScripts
                 OSInfo = ci.ToOSInformation(),
                 HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
                 NetworkInformation = NetworkInfoExt.ToNetworkInfo(),
+                TeamViewerInformation = TVInfo.AllTeamViewerInfo().Select(x=> x.ToTeamViewerInfo()).ToArray(),
                 Status = Status.Success
             };
 
