@@ -63,6 +63,7 @@ namespace ClientScripts
 
             return new SystemInfo
             {
+                ClientInfo = PCMClientParams.GetStationName(),
                 OSInfo = ci.ToOSInformation(),
                 HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
                 NetworkInformation = NetworkInfoExt.ToNetworkInfo(),
