@@ -6,32 +6,24 @@ using ClientScripts.Database;
 using ClientScripts.Extensions;
 using ClientScripts.Models;
 using ClientScripts.Reports;
-using Microsoft.VisualBasic.Devices;
 
 namespace ClientScripts
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static readonly DBProviderBase DBProvider = new DBProviderBase(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=PCMClient\pcmclient.mdb;Jet OLEDB:Database Password=PCMusic321;");       
+        public static readonly int portNumber = 3389;
+
+        private static void Main(string[] args)
         {
             try
             {
-                //if (args.Length == 0)
-                //    return;
-
-                //switch (args[0])
-                //{
-                    //case "screenreport":
                         var screenreport = CreateScreenReport();
                         WriteReport(screenreport);
-                        //break;
-
-                    //case "systeminfo":
+     
                         var systeminforeport = CreateOSInformationReport();
                         WriteReport(systeminforeport);
-                        //break;
-
-                //}
+             
             }
             catch (Exception ex)
             {
@@ -51,7 +43,7 @@ namespace ClientScripts
         {
             return new ScreenReport
             {
-                ClientParams = PCMClientParams.GetPCMClientPosition(),
+                ClientParams = PCMClientParams.GetPCMClientPosition(DBProvider),
                 Displays = Screen.AllScreens.Select(x => x.ToDisplayInfo()).ToArray(),
                 Status = Status.Success
             };
@@ -59,17 +51,34 @@ namespace ClientScripts
 
         private static SystemInfo CreateOSInformationReport()
         {
-            ComputerInfo ci = new ComputerInfo();
-
-            return new SystemInfo
+            try
             {
-                ClientInfo = PCMClientParams.GetStationName(),
-                OSInfo = ci.ToOSInformation(),
-                HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
-                NetworkInformation = NetworkInfoExt.ToNetworkInfo(),
-                TeamViewerInformation = TVInfo.AllTeamViewerInfo().Select(x=> x.ToTeamViewerInfo()).ToArray(),
-                Status = Status.Success
-            };
+                return new SystemInfo
+                {
+                    ClientInfo = PCMClientParams.GetStationName(DBProvider),
+                    OSInfo = OSInforExt.GetOSInfo(),
+                    HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
+                    NetworkInformation = NetworkInfoExt.GetNetworkInfo(),
+                    PortInformation = TcpPortInfoExt.GetPortStatusInfo(portNumber),
+                    RemoteDesktopServiceInformation = RemoteDesktopServices.GetRunningRemoteServices().Select(sc =>sc.ToRemoteDesktopService()).ToArray(),
+                    TeamViewerInformation = TVInfo.GetTVInfo().Select(x => x.ToTeamViewerInfo()).ToArray(),
+                    Status = Status.Success
+                };
+            }
+            catch
+            {
+                return new SystemInfo
+                {
+                    ClientInfo = PCMClientParams.GetStationName(DBProvider),
+                    OSInfo = OSInforExt.GetOSInfo(),
+                    HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
+                    NetworkInformation = NetworkInfoExt.GetNetworkInfo(),
+                    PortInformation = TcpPortInfoExt.GetPortStatusInfo(portNumber),
+                    RemoteDesktopServiceInformation = RemoteDesktopServices.GetRunningRemoteServices().Select(sc =>sc.ToRemoteDesktopService()).ToArray(),
+                    Status = Status.Success
+                };
+
+            }
 
         }
         private static void WriteExceptionReport(Exception ex)
@@ -88,5 +97,6 @@ namespace ClientScripts
                 //ignore;
             }
         }
+
     }
 }

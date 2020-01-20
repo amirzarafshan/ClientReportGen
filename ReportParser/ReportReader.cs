@@ -3,7 +3,6 @@ using System.IO;
 using ClientScripts;
 using ClientScripts.Reports;
 using Newtonsoft.Json.Linq;
-using RXMusic.Common.Logging;
 
 namespace ReportParser
 {
@@ -19,9 +18,8 @@ namespace ReportParser
                     .Equals(typeof(T).Name, StringComparison.OrdinalIgnoreCase);
    
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Log.Error(file, e);
                 return false;
             }
         }
@@ -34,6 +32,11 @@ namespace ReportParser
         public static ScreenReport ReadScreenReportFromFile(string file)
         {
             return Serializer.ToObject<ScreenReport>(File.ReadAllText(file));;
+        }
+
+        public static SystemInfo ReadSystemInfoFromFile(string file)
+        {
+            return Serializer.ToObject<SystemInfo>(File.ReadAllText(file));
         }
 
     }

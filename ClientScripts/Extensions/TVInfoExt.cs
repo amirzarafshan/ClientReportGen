@@ -8,8 +8,8 @@ namespace ClientScripts.Extensions
         {
             return new TVInformation
             {
-                Version = tvInformation.TV_version.Trim(),
-                ClientID = tvInformation.TV_clientID
+                Version = tvInformation.Version.Trim(),
+                ClientId = tvInformation.ClientId
             };
         }
     }

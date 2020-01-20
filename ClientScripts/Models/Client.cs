@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace ClientScripts.Models
 {
@@ -14,12 +15,7 @@ namespace ClientScripts.Models
 
         public static List<Client> ReadClientsFromText(string file)
         {
-            var units = new List<Client>();
-
-            foreach(var unit in File.ReadAllLines(file))
-               units.Add(new Client(unit.Trim()));
-
-            return units;   
+            return File.ReadAllLines(file).Select(unit => new Client(unit.Trim())).ToList();
         }
     }
 

@@ -14,6 +14,5 @@ namespace ClientScripts.Extensions
                 Name = cpuInfo.Name.Trim()
             };
         }
-           
     }
 }

@@ -7,10 +7,10 @@ namespace ClientScripts.Extensions
 {
     public static class HDDInfoExt
     {
+        private const int MegaByte = 1048576;
 
         public static LogicalDriveInfo ToHDDInfo (this DriveInfo driveInfo)
         {
-            const int ToMB = 1048576;
 
             if (driveInfo == null)
                 throw new ArgumentException(nameof(driveInfo));
@@ -20,8 +20,8 @@ namespace ClientScripts.Extensions
                 DriveName = driveInfo.Name.Trim(),
                 SerialNumber = VolumeSerialNumber(driveInfo.Name).Trim(),
                 FileSystem = driveInfo.DriveFormat.Trim(),
-                Size = driveInfo.TotalSize/ToMB,
-                FreeSpace = driveInfo.AvailableFreeSpace/ToMB
+                Size = driveInfo.TotalSize/ MegaByte,
+                FreeSpace = driveInfo.AvailableFreeSpace/MegaByte
             };
         }
         
@@ -31,7 +31,7 @@ namespace ClientScripts.Extensions
             if (mObject == null)
                 throw new ManagementException();
 
-            return mObject["VolumeSerialNumber"].ToString();    
+            return mObject["VolumeSerialNumber"]?.ToString() ?? "no serial number found";    
        }
     }
 }

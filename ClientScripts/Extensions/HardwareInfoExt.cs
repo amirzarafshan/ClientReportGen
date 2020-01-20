@@ -10,10 +10,10 @@ namespace ClientScripts.Extensions
     {
         public static HardwareInformation ToHardwareInfo()
         {
-            ManagementClass vc = new ManagementClass("Win32_VideoController");
+            //ManagementClass vc = new ManagementClass("Win32_VideoController");
             return new HardwareInformation
             {   
-                BiosSerialNumber = BIOSInfo.SerialNumber().Trim(),
+                BiosSerialNumber = BIOSInfo.GetSerialNumber().Trim(),
                 Manufacturer = ComputerSystemInfo.Manufacturer().Trim(),
                 Model = ComputerSystemInfo.Model().Trim(),
                 RAM = ComputerSystemInfo.PhysicalMemory(),

@@ -7,11 +7,9 @@ namespace ClientScripts
     public static class Serializer
     {
         public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            //DefaultValueHandling = DefaultValueHandling.Ignore,
+        {       
             Converters = { new StringEnumConverter() },
             ContractResolver = new LowercaseContractResolver(),
-            //NullValueHandling = NullValueHandling.Ignore,
             Formatting = Formatting.Indented,
             ReferenceLoopHandling = ReferenceLoopHandling.Serialize
         };

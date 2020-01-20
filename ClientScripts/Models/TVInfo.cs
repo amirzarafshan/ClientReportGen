@@ -7,47 +7,55 @@ namespace ClientScripts.Models
 {
     public sealed class TVInfo
     {
-        public string TV_version { get; set; }
-        public long TV_clientID { get; set; }
+        public string Version { get; set; }
+        public long ClientId { get; set; }
 
-        public TVInfo(string version, long clientID)
+        public TVInfo(string version, long clientId)
         {
-            TV_version = version;
-            TV_clientID = clientID;
+            Version = version;
+            ClientId = clientId;
         }
 
-        public static List<TVInfo> AllTeamViewerInfo()
+        public static List<TVInfo> GetTVInfo()
         {
-            List<TVInfo> tvInfos = new List<TVInfo>();
-            foreach (RegistryKey key in GetTeamViewerRegistryKeys())
-                tvInfos.Add(new TVInfo(key.GetValue("Version").ToString().Trim(), Convert.ToUInt32(key.GetValue("ClientID"))));
+           
+                var tvInfos = new List<TVInfo>();
+                foreach (RegistryKey key in GetTeamViewerRegistryKeys())
+                    tvInfos.Add(new TVInfo(key.GetValue("Version").ToString().Trim(), Convert.ToUInt32(key.GetValue("ClientID"))));
 
-            return tvInfos;
+                return tvInfos;
         }
 
         public static List<RegistryKey> GetTeamViewerRegistryKeys()
         {
 
-            List<RegistryKey> keys = new List<RegistryKey>();
+            var keys = new List<RegistryKey>();
 
             if (Environment.Is64BitOperatingSystem)
             {
                 var oldVerKeys64 = Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath64Bit).GetSubKeyNames().Where(x => x.ToLowerInvariant().Contains("version"));
                 if (Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath64Bit).ValueCount > 0)
+                {
                     keys.Add(Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath64Bit));
+                }
 
-                foreach (string oldKey64 in oldVerKeys64)
-                    keys.Add(Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath64Bit + oldKey64));
+                if (oldVerKeys64 != null)
+                {
+                    keys.AddRange(oldVerKeys64.Select(oldKey64 => Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath64Bit + oldKey64)));
+                }
+
             }
 
             else
             {
-                var oldVerKeys32 = Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit).GetSubKeyNames().Where(x => x.ToLowerInvariant().Contains("version"));
-                if (Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit).ValueCount > 0)
+                var oldVerKeys32 = Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit)?.GetSubKeyNames().Where(x => x.ToLowerInvariant().Contains("version"));
+                if (Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit)?.ValueCount > 0)
                     keys.Add(Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit));
 
-                foreach (string oldKey32 in oldVerKeys32)
-                    keys.Add(Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit + oldKey32));
+                if (oldVerKeys32 != null)
+                {
+                    keys.AddRange(oldVerKeys32.Select(oldKey32 => Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit + oldKey32)));
+                }
             }
             return keys;
         }

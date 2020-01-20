@@ -5,13 +5,26 @@
     <TargetFramework>net46</TargetFramework>
     <Platforms>x86</Platforms>
     <AssemblyName>ReportParser</AssemblyName>
+    <ApplicationIcon />
+    <Win32Resource />
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <ProjectReference Include="..\ClientScripts\ClientScripts.csproj" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="RXMusic.Common.Logging" Version="6.0.0-b1810061053" />
   </ItemGroup>
 
 </Project>

@@ -7,18 +7,31 @@ namespace ClientScripts.Models
 {
     public class ComputerSystemInfo
     {
-        const int ToMB = 1048576;
+        const int ToMb = 1048576;
 
         private static string ComputerSystem(string propName)
         {
- 
-            ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
-            foreach (ManagementObject query in mc.GetInstances())
-                    if (query.Properties.Count > 0)
-                    {
-                        return query[propName].ToString();
-                    }    
-            return null;
+            try
+            {
+                using (var mc = new ManagementClass("Win32_ComputerSystem"))
+                {
+                    lock (mc.GetInstances().SyncRoot)
+                        foreach (var o in mc.GetInstances())
+                        {
+                            var query = (ManagementObject)o;
+                            if (query?.Properties.Count > 0)
+                            {
+                                return query[propName].ToString();
+                            }
+                        }
+
+                    return string.Empty;
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
         }
 
         public static string Manufacturer()
@@ -33,8 +46,8 @@ namespace ClientScripts.Models
 
         public static double PhysicalMemory()
         {
-            ComputerInfo ci = new ComputerInfo();
-            return Convert.ToDouble(ci.TotalPhysicalMemory/ToMB);
+            var ci = new ComputerInfo();
+            return Convert.ToDouble(ci.TotalPhysicalMemory/ToMb);
         }
     }
 }

@@ -1,43 +1,31 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using System.Threading;
-using System.Windows.Forms;
+using System.Net.Sockets;
 using ClientScripts.Models;
-
+using Microsoft.Win32;
 
 namespace ClientScripts.Extensions
 {
     public static class NetworkInfoExt
     {
-        public static NetworkInfo ToNetworkInfo()
+        public static NetworkInfo GetNetworkInfo()
         {
+            var ip = Dns.GetHostAddresses(Dns.GetHostName()).FirstOrDefault(a => a.AddressFamily == AddressFamily.InterNetwork)
+                         ?.ToString().Trim() ?? "no found";
 
             return new NetworkInfo
             {
-                IPAddress = Dns.GetHostAddresses(Dns.GetHostName()).Where(a => a.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault().ToString().Trim(),
+                IPAddress = ip,
                 DotNETVersion = Environment.Version.ToString().Trim(),
                 IEVersion = InternetExplorerVersion().Trim()
-
+                
             };
         }
 
-
         public static string InternetExplorerVersion()
         {
-           
-            string IEVer = String.Empty;
-            Thread t = new Thread(() =>
-            {
-                using (WebBrowser webBrowser = new WebBrowser())
-                { IEVer = webBrowser.Version.ToString();}
-
-            });
-            
-            t.SetApartmentState(ApartmentState.STA);
-            t.Start();
-            t.Join();
-            return IEVer;
-        } 
+            return Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Internet Explorer")?.GetValue("Version").ToString();
+        }
     }
 }

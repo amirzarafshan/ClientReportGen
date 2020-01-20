@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ClientScripts.Models;
 using Microsoft.VisualBasic.Devices;
 
@@ -10,17 +6,24 @@ namespace ClientScripts.Extensions
 {
     public static class OSInforExt
     {
-        public static OSInformation ToOSInformation(this ComputerInfo computerInfo)
+        public static OSInformation GetOSInfo()
         {
-            if (computerInfo == null)
-                throw new ArgumentNullException(nameof(computerInfo));
-
-            return new OSInformation
+            try
             {
-                ComputerSystem = Environment.MachineName.Trim(),
-                OperatingSystem = computerInfo.OSFullName.Trim(),
-                OperatingSystemVersion = computerInfo.OSVersion.Trim()
-            };
+                var ci = new ComputerInfo();
+
+
+                return new OSInformation
+                {
+                    ComputerSystem = Environment.MachineName.Trim(),
+                    OperatingSystem = ci.OSFullName.Trim(),
+                    OperatingSystemVersion = ci.OSVersion.Trim()
+                };
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

@@ -17,12 +17,21 @@ namespace ClientScripts.Models
 
         public static ProcessorInfo[] CPUsInfo()
         {
+            try { 
             List<ProcessorInfo> processorsList = new List<ProcessorInfo>();
             ManagementClass mc = new ManagementClass("Win32_Processor");
-            foreach (ManagementObject processor in mc.GetInstances())
-                processorsList.Add(new ProcessorInfo(processor["Name"].ToString()));
 
-            return processorsList.ToArray();
+        
+                lock (mc.GetInstances().SyncRoot)
+                    foreach (ManagementObject processor in mc.GetInstances())
+                        processorsList.Add(new ProcessorInfo(processor["Name"].ToString()));
+
+                return processorsList.ToArray();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public override string ToString()

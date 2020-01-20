@@ -9,10 +9,10 @@ namespace ClientScripts.Database
     {
         private readonly string _connString;
 
-        public DBProviderBase()
-        {
-            _connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=PCMClient\pcmclient.mdb;Jet OLEDB:Database Password=PCMusic321;";
-        }
+        //public DBProviderBase()
+        //{
+        //    _connString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=PCMClient\pcmclient.mdb;Jet OLEDB:Database Password=PCMusic321;";
+        //}
 
         public DBProviderBase(string connString)
         {

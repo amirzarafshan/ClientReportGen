@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Management;
-using System.Text;
 
 namespace ClientScripts.Models
 {
@@ -19,14 +17,27 @@ namespace ClientScripts.Models
 
         public static GPUInformation[] AllGraphicCards()
         {
-            const int ToMB = 1048576;
-            List<GPUInformation> graphicsCard = new List<GPUInformation>();
-            ManagementClass graphicInfo = new ManagementClass("Win32_VideoController");
-            foreach (ManagementObject m in graphicInfo.GetInstances())
-                graphicsCard.Add(new GPUInformation(m["Description"].ToString().Trim(), Convert.ToInt32(m["AdapterRAM"]) / ToMB));
+            const int mb = 1048576;
+            try
+            {
+                var graphicsCard = new List<GPUInformation>();
+                using (var graphicInfo = new ManagementClass("Win32_VideoController"))
+                {
+                    lock (graphicInfo.GetInstances().SyncRoot)
+                        foreach (var o in graphicInfo.GetInstances())
+                        {
+                            var m = (ManagementObject)o;
+                            graphicsCard.Add(new GPUInformation(m["Description"].ToString().Trim(), Convert.ToInt64(m["AdapterRAM"]) / mb));
+                        }
 
-            return graphicsCard.ToArray();
-           
+                    return graphicsCard.ToArray();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
         }
 
         public override string ToString()
