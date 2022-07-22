@@ -5,7 +5,6 @@ namespace ClientScripts.Database
 {
     public class PCMClientParams
     {
-
         public static ClientParams GetPCMClientPosition(DBProviderBase provider)
         {
             const string query = "SELECT bLockAppWindow,iPosX,iPosY FROM tblParams"; 

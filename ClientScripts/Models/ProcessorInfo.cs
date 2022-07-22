@@ -11,26 +11,29 @@ namespace ClientScripts.Models
         public string Name { get; set; }
 
         public ProcessorInfo (string cpuName)
-        {
-            Name = cpuName;
+        {       
+                Name = cpuName;        
         }
 
         public static ProcessorInfo[] CPUsInfo()
         {
-            try { 
             List<ProcessorInfo> processorsList = new List<ProcessorInfo>();
-            ManagementClass mc = new ManagementClass("Win32_Processor");
+            try {            
+                ManagementClass mc = new ManagementClass("Win32_Processor");
+                  if (mc == null)
+                      throw new ManagementException();
+                
 
-        
                 lock (mc.GetInstances().SyncRoot)
-                    foreach (ManagementObject processor in mc.GetInstances())
-                        processorsList.Add(new ProcessorInfo(processor["Name"].ToString()));
+                    foreach (ManagementObject processor in mc.GetInstances())   
+                            processorsList.Add(new ProcessorInfo(processor["Name"].ToString()));
 
                 return processorsList.ToArray();
             }
+
             catch
-            {
-                return null;
+            {               
+                return new List<ProcessorInfo>().ToArray();              
             }
         }
 
@@ -38,6 +41,5 @@ namespace ClientScripts.Models
         {
             return Serializer.ToString(this);
         }
-
     }
 }

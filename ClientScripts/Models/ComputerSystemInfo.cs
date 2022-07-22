@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Management;
 using Microsoft.VisualBasic.Devices;
 
@@ -8,7 +7,6 @@ namespace ClientScripts.Models
     public class ComputerSystemInfo
     {
         const int ToMb = 1048576;
-
         private static string ComputerSystem(string propName)
         {
             try
@@ -24,10 +22,10 @@ namespace ClientScripts.Models
                                 return query[propName].ToString();
                             }
                         }
-
                     return string.Empty;
                 }
             }
+
             catch
             {
                 return string.Empty;
@@ -48,6 +46,11 @@ namespace ClientScripts.Models
         {
             var ci = new ComputerInfo();
             return Convert.ToDouble(ci.TotalPhysicalMemory/ToMb);
+        }
+
+        public override string ToString()
+        {
+            return Serializer.ToString(this);
         }
     }
 }

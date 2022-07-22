@@ -5,6 +5,11 @@ namespace ClientScripts.Models
     {
         public string Description { get; set; }
         public long AdapterRAM { get; set; }
+
+        public override string ToString()
+        {
+            return Serializer.ToString(this);
+        }
     }
 
 }

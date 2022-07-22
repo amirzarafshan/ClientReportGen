@@ -11,7 +11,7 @@ namespace ReportParser
     {
         static void Main(string[] args)
         {
-           ReportTypeForm.GenerateReport();
+            ReportTypeForm.GenerateReport();       
         }
     }
 }

@@ -29,15 +29,13 @@ namespace ClientScripts.Models
                             var m = (ManagementObject)o;
                             graphicsCard.Add(new GPUInformation(m["Description"].ToString().Trim(), Convert.ToInt64(m["AdapterRAM"]) / mb));
                         }
-
                     return graphicsCard.ToArray();
                 }
             }
             catch
             {
-                return null;
+                return new List<GPUInformation>().ToArray();
             }
-
         }
 
         public override string ToString()

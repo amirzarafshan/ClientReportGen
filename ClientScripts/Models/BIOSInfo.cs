@@ -1,5 +1,4 @@
-﻿
-using System.Management;
+﻿using System.Management;
 
 namespace ClientScripts.Models
 {
@@ -18,15 +17,19 @@ namespace ClientScripts.Models
                             if (query?.Path != null)
                                 return query["SerialNumber"].ToString();
                         }
-
                     return string.Empty;
                 }
             }
+
             catch
             {
-                return string.Empty;
-  
+                return string.Empty;  
             }
+        }
+
+        public override string ToString()
+        {
+            return Serializer.ToString(this);
         }
     }
 }

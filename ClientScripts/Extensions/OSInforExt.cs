@@ -11,8 +11,6 @@ namespace ClientScripts.Extensions
             try
             {
                 var ci = new ComputerInfo();
-
-
                 return new OSInformation
                 {
                     ComputerSystem = Environment.MachineName.Trim(),

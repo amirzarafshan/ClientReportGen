@@ -10,7 +10,6 @@ namespace ClientScripts.Extensions
      
         public static VideoControllerInfo ToVideoControllerInfo(this GPUInformation gpInfo)
         {
-
             return new VideoControllerInfo
             {
                 Description = gpInfo.Name.Trim(),

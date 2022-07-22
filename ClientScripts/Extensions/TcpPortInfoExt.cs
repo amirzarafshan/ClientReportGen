@@ -18,8 +18,7 @@ namespace ClientScripts.Extensions
                     {
                         PortNumber = portnumber,
                         Status = "LISTENING"
-                    };
-                    
+                    };                   
                 }
                 catch
                 {
@@ -28,7 +27,6 @@ namespace ClientScripts.Extensions
                         PortNumber = portnumber,
                         Status = "NOTLISTENING"
                     };
-
                 }
             }
         }

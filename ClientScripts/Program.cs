@@ -13,17 +13,15 @@ namespace ClientScripts
     {
         private static readonly DBProviderBase DBProvider = new DBProviderBase(@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=PCMClient\pcmclient.mdb;Jet OLEDB:Database Password=PCMusic321;");       
         public static readonly int portNumber = 3389;
-
         private static void Main(string[] args)
         {
+            RebuildPerformanceCounter.Start();
             try
             {
-                        var screenreport = CreateScreenReport();
-                        WriteReport(screenreport);
-     
-                        var systeminforeport = CreateOSInformationReport();
-                        WriteReport(systeminforeport);
-             
+                var screenreport = CreateScreenReport();
+                WriteReport(screenreport);
+                var systeminforeport = CreateOSInformationReport();
+                WriteReport(systeminforeport);
             }
             catch (Exception ex)
             {
@@ -33,7 +31,7 @@ namespace ClientScripts
 
         private static void WriteReport(ReportBase reportBase)
         {
-            using (var file = File.CreateText(reportBase.ReportName + ".pcmstat"))
+            using (var file = File.CreateText(reportBase.Name + ".pcmstat"))
             {
                 file.Write(reportBase);
             }
@@ -43,8 +41,9 @@ namespace ClientScripts
         {
             return new ScreenReport
             {
-                ClientParams = PCMClientParams.GetPCMClientPosition(DBProvider),
-                Displays = Screen.AllScreens.Select(x => x.ToDisplayInfo()).ToArray(),
+                //ClientParams = PCMClientParams.GetPCMClientPosition(DBProvider),
+                //Displays = Screen.AllScreens.Select(x => x.ToDisplayInfo()).ToArray(),
+                Data = ScreenReportContainer.ToScreenReport(),
                 Status = Status.Success
             };
         }
@@ -55,32 +54,34 @@ namespace ClientScripts
             {
                 return new SystemInfo
                 {
-                    ClientInfo = PCMClientParams.GetStationName(DBProvider),
+                    /*ClientInfo = PCMClientParams.GetStationName(DBProvider),
                     OSInfo = OSInforExt.GetOSInfo(),
                     HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
                     NetworkInformation = NetworkInfoExt.GetNetworkInfo(),
                     PortInformation = TcpPortInfoExt.GetPortStatusInfo(portNumber),
-                    RemoteDesktopServiceInformation = RemoteDesktopServices.GetRunningRemoteServices().Select(sc =>sc.ToRemoteDesktopService()).ToArray(),
+                    RemoteDesktopServiceInformation = RemoteDesktopServices.GetRunningRemoteServices().Select(sc => sc.ToRemoteDesktopService()).ToArray(),
                     TeamViewerInformation = TVInfo.GetTVInfo().Select(x => x.ToTeamViewerInfo()).ToArray(),
-                    Status = Status.Success
+                    MemoryUsage = MemoryUsageInfoExt.ToMemoryUsageInfo(),
+                    */
+                    Data = SystemInfoContainer.ToSystemInfo(),
+                    Status = Status.Success                 
                 };
             }
             catch
             {
                 return new SystemInfo
                 {
-                    ClientInfo = PCMClientParams.GetStationName(DBProvider),
-                    OSInfo = OSInforExt.GetOSInfo(),
-                    HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
-                    NetworkInformation = NetworkInfoExt.GetNetworkInfo(),
-                    PortInformation = TcpPortInfoExt.GetPortStatusInfo(portNumber),
-                    RemoteDesktopServiceInformation = RemoteDesktopServices.GetRunningRemoteServices().Select(sc =>sc.ToRemoteDesktopService()).ToArray(),
+                    //ClientInfo = PCMClientParams.GetStationName(DBProvider),
+                   // OSInfo = OSInforExt.GetOSInfo(),
+                   // HardwareInfo = HardwareInfoExt.ToHardwareInfo(),
+                   // NetworkInformation = NetworkInfoExt.GetNetworkInfo(),
+                  //  PortInformation = TcpPortInfoExt.GetPortStatusInfo(portNumber),
+                   // RemoteDesktopServiceInformation = RemoteDesktopServices.GetRunningRemoteServices().Select(sc =>sc.ToRemoteDesktopService()).ToArray(),
                     Status = Status.Success
                 };
-
             }
-
         }
+
         private static void WriteExceptionReport(Exception ex)
         {
             try
@@ -97,6 +98,5 @@ namespace ClientScripts
                 //ignore;
             }
         }
-
     }
 }

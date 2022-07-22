@@ -17,18 +17,15 @@ namespace ClientScripts.Models
         }
 
         public static List<TVInfo> GetTVInfo()
-        {
-           
+        {        
                 var tvInfos = new List<TVInfo>();
                 foreach (RegistryKey key in GetTeamViewerRegistryKeys())
                     tvInfos.Add(new TVInfo(key.GetValue("Version").ToString().Trim(), Convert.ToUInt32(key.GetValue("ClientID"))));
-
                 return tvInfos;
         }
 
         public static List<RegistryKey> GetTeamViewerRegistryKeys()
         {
-
             var keys = new List<RegistryKey>();
 
             if (Environment.Is64BitOperatingSystem)
@@ -43,7 +40,6 @@ namespace ClientScripts.Models
                 {
                     keys.AddRange(oldVerKeys64.Select(oldKey64 => Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath64Bit + oldKey64)));
                 }
-
             }
 
             else
@@ -51,7 +47,6 @@ namespace ClientScripts.Models
                 var oldVerKeys32 = Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit)?.GetSubKeyNames().Where(x => x.ToLowerInvariant().Contains("version"));
                 if (Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit)?.ValueCount > 0)
                     keys.Add(Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit));
-
                 if (oldVerKeys32 != null)
                 {
                     keys.AddRange(oldVerKeys32.Select(oldKey32 => Registry.LocalMachine.OpenSubKey(RegistryKeysInfo.TeamViewerPath32Bit + oldKey32)));
@@ -62,8 +57,7 @@ namespace ClientScripts.Models
 
         public override string ToString()
         {
-            return Serializer.ToString(this);
-            
+            return Serializer.ToString(this);           
         }
     }
 }

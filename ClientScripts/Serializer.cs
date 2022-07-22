@@ -11,12 +11,13 @@ namespace ClientScripts
             Converters = { new StringEnumConverter() },
             ContractResolver = new LowercaseContractResolver(),
             Formatting = Formatting.Indented,
-            ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+            ReferenceLoopHandling = ReferenceLoopHandling.Serialize,
+            NullValueHandling = NullValueHandling.Ignore
         };
 
         public static string ToString(object o)
         {
-            return JsonConvert.SerializeObject(o, Settings);
+            return JsonConvert.SerializeObject(o,Settings);
         }
 
         public static T ToObject<T>(string str)

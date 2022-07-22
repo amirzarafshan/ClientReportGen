@@ -37,8 +37,7 @@ namespace ClientScripts.Models
             catch
             {
                 return null;
-            }
-        
+            }      
         }
 
         public override string ToString()

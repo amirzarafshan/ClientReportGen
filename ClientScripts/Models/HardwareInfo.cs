@@ -18,5 +18,4 @@ namespace ClientScripts.Models
             return Serializer.ToString(this);
         }
     }
-
 }

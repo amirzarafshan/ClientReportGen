@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ClientScripts.Models
 {
@@ -51,6 +48,62 @@ namespace ClientScripts.Models
 
             return String.Join(",", Client, Name, Version, Create_Date, Computer, OS, OSVer, BIOS, Manufacturer, Model, Ram, CPU_count, CPUInfo, LogicalDisk, Graphics, IP, DotNet, IE, PortInfo, RemoteService, TVID_ver);
 
+        }
+
+        public static string GetMemoryInfoCSVHeaders()
+        {
+            string Client = "Station_Name";      
+            string Name = "Report_Name";
+            string Version = "Report_Version";
+            string Create_Date = "Date_Created";
+            string OS = "Operating_System";
+            string Application = "Application_Name";
+            string Build = "Build";
+            string PagingFile = "Paging_File(size_MB)";
+            string RamUsage = "Ram_Usage";
+            string WorkingSet = "Working_Set (K)";
+            string PeakWorkingSet = "Peak_Working_Set (K)";
+            string CommitSize = "CommitSize (K)";
+            string PagedPool = "Paged_Pool (K)";
+            string NonPagedPool = "Non_Paged_Pool (K)";
+            string Handles = "Handles";
+            string Threads = "Threads";
+            string GDIObject = "GDI_Object";
+            return String.Join(",", Client,
+                                    Name, 
+                                    Version,
+                                    Create_Date,
+                                    OS,
+                                    Application,
+                                    Build,
+                                    PagingFile,
+                                    RamUsage,
+                                    WorkingSet,
+                                    PeakWorkingSet,
+                                    CommitSize,
+                                    PagedPool,
+                                    NonPagedPool,
+                                    Handles,
+                                    Threads,
+                                    GDIObject                                    
+                                    );
+        }
+
+        public static string GetErrorInfoCSVHeaders()
+        {
+            string Client = "Station_Name";
+            string Name = "Report_Name";
+            string Version = "Report_Version";
+            string Create_Date = "Date_Created";
+            string Message = "Message";
+            string StackTrace = "StackTrace";
+            return String.Join(",", Client,
+                                    Name,
+                                    Version,
+                                    Create_Date,
+                                    Message,
+                                    StackTrace
+                                    );
         }
     }
 }

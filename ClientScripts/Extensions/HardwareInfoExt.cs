@@ -10,9 +10,8 @@ namespace ClientScripts.Extensions
     {
         public static HardwareInformation ToHardwareInfo()
         {
-            //ManagementClass vc = new ManagementClass("Win32_VideoController");
             return new HardwareInformation
-            {   
+            {
                 BiosSerialNumber = BIOSInfo.GetSerialNumber().Trim(),
                 Manufacturer = ComputerSystemInfo.Manufacturer().Trim(),
                 Model = ComputerSystemInfo.Model().Trim(),
@@ -20,9 +19,8 @@ namespace ClientScripts.Extensions
                 CPU_Count = Environment.ProcessorCount,
                 CPUInfo = ProcessorInfo.CPUsInfo().Select(c => c.ToCPUInfo()).ToArray(),
                 LogicalDiskInfo = DriveInfo.GetDrives().Where(x => x.DriveType == DriveType.Fixed).Select(x => x.ToHDDInfo()).ToArray(),
-                VideoControllerInfo = GPUInformation.AllGraphicCards().Select(y => y.ToVideoControllerInfo()).ToArray()        
-            };
-            
+                VideoControllerInfo = GPUInformation.AllGraphicCards().Select(y => y.ToVideoControllerInfo()).ToArray()
+            };  
         }
     }
 }

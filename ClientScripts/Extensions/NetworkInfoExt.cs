@@ -13,13 +13,11 @@ namespace ClientScripts.Extensions
         {
             var ip = Dns.GetHostAddresses(Dns.GetHostName()).FirstOrDefault(a => a.AddressFamily == AddressFamily.InterNetwork)
                          ?.ToString().Trim() ?? "no found";
-
             return new NetworkInfo
             {
                 IPAddress = ip,
                 DotNETVersion = Environment.Version.ToString().Trim(),
-                IEVersion = InternetExplorerVersion().Trim()
-                
+                IEVersion = InternetExplorerVersion().Trim()              
             };
         }
 

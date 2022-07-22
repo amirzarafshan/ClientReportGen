@@ -8,15 +8,13 @@ namespace ReportParser
 {
     public class ReportReader
     {
-
         public static bool IsValidType<T>(string file)
         {
             try
             {
                 var report = Serializer.ToObject<JObject>(File.ReadAllText(file));
-                return report[nameof(ReportBase.ReportName).ToLowerInvariant()].ToString()
+                return report[nameof(ReportBase.Name).ToLowerInvariant()].ToString()
                     .Equals(typeof(T).Name, StringComparison.OrdinalIgnoreCase);
-   
             }
             catch (Exception)
             {
@@ -38,6 +36,5 @@ namespace ReportParser
         {
             return Serializer.ToObject<SystemInfo>(File.ReadAllText(file));
         }
-
     }
 }

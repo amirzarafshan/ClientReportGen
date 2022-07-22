@@ -11,5 +11,9 @@ namespace ClientScripts.Models
         public double Size { get; set; }
         public double FreeSpace { get; set; }
 
+        public override string ToString()
+        {
+            return Serializer.ToString(this);
+        }
     }
 }

@@ -7,10 +7,15 @@
     <AssemblyName>ReportParser</AssemblyName>
     <ApplicationIcon />
     <Win32Resource />
-    <StartupObject />
+    <StartupObject></StartupObject>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="18.0.0" />
     <PackageReference Include="Dapper" Version="1.50.2" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
